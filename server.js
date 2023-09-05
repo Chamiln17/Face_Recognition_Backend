@@ -2,6 +2,7 @@ import express from "express";
 import argon2 from "argon2";
 import cors from "cors";
 import knex from "knex";
+import e from "express";
 
 const db = knex({
   client: "pg",
@@ -53,38 +54,52 @@ app.use(cors());
 }; */
 
 app.get("/", (req, res) => {
-  res.send(database.users);
-});
+res.send});
 
 app.post("/signin", (req, res) => {
   const { email, password } = req.body;
-  db(user).select("email", "hash");
+  db.select("email", "hash").from("login")
+  .where("email", "=", email)
+  .then(async(data) =>{
+    try {
+      if (await argon2.verify(data[0].hash, password)) {
+        // password match
+      } else {
+        // password did not match
+      }
+    } catch (err) {
+      // internal failure
+    }
+  });
 });
 
 
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
   const { email, name, password } = req.body;
+  const hash = await hashPassword(password) ;
   db.transaction((trx) => {
-    trx.insert({
-      email: email,
-      hash: hashPassword(password),
-    });
-    into("login")
+      trx.insert({
+        email: email,
+        hash: hash
+      })
+      .into("login")
       .returning("email")
       .then((loginEmail) => {
-        db("users")
+          trx("users")
           .returning("*")
           .insert({
-            email: loginEmail,
+            email: loginEmail[0].email,
             name: name,
             joined: new Date(),
           })
           .then((user) => res.json(user[0]));
-      })
-      .catch((err) => res.status(400).json("unable to register"));
-  });
+        })
+        .then(trx.commit)
+        .catch(trx.rollback);
+        
+  })
+  .catch((err) => res.status(400).json("unable to register"));
 });
-
 
 app.get("/profile/:id", (req, res) => {
   const { id } = req.params;
@@ -102,7 +117,6 @@ app.get("/profile/:id", (req, res) => {
     .catch((err) => res.status(404).json("error getting users"));
 });
 
-
 app.put("/image", (req, res) => {
   const { id } = req.body;
   db("users")
@@ -115,9 +129,9 @@ app.put("/image", (req, res) => {
     .catch((err) => res.status(400).json("error getting entries"));
 });
 
-
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+app
+  .listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
   })
   .on("error", (err) => {
