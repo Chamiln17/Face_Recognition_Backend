@@ -13,9 +13,7 @@ This document provides an overview of the Face Recognition Brain Backend, which 
 
 ## Project Structure
 The project structure is organized as follows:
-- `index.js`: The main entry point of the application.
 - `server.js`: The server setup and configuration.
-- Other project files and directories.
 
 ## Dependencies
 The backend relies on various dependencies, listed in the `package.json` file:
