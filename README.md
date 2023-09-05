@@ -62,7 +62,3 @@ The server will listen on the specified port (default is 5000) and can be access
 
 ## Conclusion
 The Face Recognition Brain Backend provides essential functionality for user authentication, profile management, and face recognition. This documentation serves as a guide for understanding the backend's structure and functionality.
-
----
-
-Feel free to provide additional details or make any necessary modifications to this documentation. If you have any specific questions or need further assistance, please let me know.
