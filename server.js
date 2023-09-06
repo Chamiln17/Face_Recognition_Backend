@@ -2,7 +2,6 @@ import express from "express";
 import argon2 from "argon2";
 import cors from "cors";
 import knex from "knex";
-import e from "express";
 
 const db = knex({
   client: "pg",
@@ -32,26 +31,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-/* const database = {
-  users: [
-    {
-      id: "123",
-      name: "John",
-      email: "john@gmail.com",
-      password: "cookies",
-      entries: 0,
-      joined: new Date(),
-    },
-    {
-      id: "124",
-      name: "Sally",
-      email: "sally@gmail.com",
-      password: "bananas",
-      entries: 0,
-      joined: new Date(),
-    },
-  ],
-}; */
 
 app.get("/", (req, res) => {
 res.send});
@@ -62,15 +41,20 @@ app.post("/signin", (req, res) => {
   .where("email", "=", email)
   .then(async(data) =>{
     try {
-      if (await argon2.verify(data[0].hash, password)) {
-        // password match
+      const isValid =await argon2.verify(data[0].hash, password);
+      if (isValid) {
+        return db.select("*").from("users")  // password match
+        .where("email", "=", email)
+        .then((user) => {res.json(user[0])})
+        .catch((err) => res.status(400).json("unable to get user"));
       } else {
-        // password did not match
+        res.status(400).json("wrong credentials");// password did not match
       }
     } catch (err) {
-      // internal failure
+      res.status(400).json("failed to login");//  error
     }
-  });
+  })
+  .catch((err) => res.status(400).json("wrong credentials"));
 });
 
 
