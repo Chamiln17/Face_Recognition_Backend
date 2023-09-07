@@ -18,6 +18,9 @@ async function hashPassword(password) {
 
 export const handleRegister = async (req, res ,db ) => {
     const { email, name, password } = req.body;
+    if (!email || !password || !name){
+        return res.status(400).json("incorrect form submission");
+    }
     const hash = await hashPassword(password) ;
     db.transaction((trx) => {
         trx.insert({
