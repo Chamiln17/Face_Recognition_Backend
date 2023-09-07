@@ -5,7 +5,8 @@ import knex from "knex";
 import {handleRegister} from "./controllers/register.js"
 import {handleSignIn} from "./controllers/signin.js"
 import {handleProfileGet} from "./controllers/profile.js"
-import { handleImage } from "./controllers/image.js";
+import { handleImage , handleImgUrl } from "./controllers/image.js";
+
 
 const db = knex({
   client: "pg",
@@ -34,7 +35,9 @@ app.post("/register", (req, res)=>{handleRegister(req,res,db)});
 
 app.get("/profile/:id", (req, res) => {handleProfileGet(req,res,db)});
 
-app.put("/image", (req,res)=>{handleImage(res,req,db)} );
+app.put("/image", (req,res)=>{handleImage(req,res,db)} );
+
+app.post("/imageurl", (req,res)=>{handleImgUrl(req,res)});
 
 const PORT = process.env.PORT || 5000;
 app
