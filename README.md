@@ -51,6 +51,40 @@ The backend uses a PostgreSQL database named "brain-db" with the following schem
 - Users table: Stores user information including name, email, and the number of entries.
 - Login table: Stores user login information, including email and hashed passwords.
 
+
+## How to Use the Clarifai API for Face Recognition
+
+To use the Clarifai API for face recognition, go to `image.js` and follow this:
+
+1. **Get a Personal Access Token (PAT):**
+
+   - Your PAT (Personal Access Token) can be obtained from the Clarifai portal under Authentication.
+   - This token is required for authenticating your requests to the Clarifai API.
+
+2. **Specify Model ID:**
+
+   - Set the `MODEL_ID` variable to the specific model you want to use for face recognition.
+   - You can change this to the desired Clarifai model.
+
+3. **Create a JSON Request Body:**
+
+   - Use the `requestOptionsJSON` function to create the JSON body for your API request.
+   - Replace the `PAT`, `USER_ID`, `APP_ID`, and `IMAGE_URL` with your specific values.
+   - The `PAT` is your Personal Access Token, and the `IMAGE_URL` should be the URL of the image you want to process.
+
+4. **Make the API Request:**
+
+   - In the `onPictureSubmit` function, use the `fetch` function to send a POST request to the Clarifai API.
+   - The Clarifai API will process the image and return the result, including face detection data.
+
+5. **Display Face Recognition Results:**
+
+   - Use the `displayFaceBox` and `calcBoxFace` functions to calculate and display the bounding box around detected faces.
+   - You can customize how the face recognition results are displayed in your application.
+
+Make sure to replace the placeholder values in the code with your actual Clarifai credentials and image URLs.
+
+
 ## Usage
 To run the backend locally, make sure you have PostgreSQL installed and configured with the correct connection settings in `server.js`. Then, follow these steps:
 1. Install project dependencies using `npm install`.
