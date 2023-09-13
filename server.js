@@ -9,13 +9,14 @@ import { handleImage , handleImgUrl } from "./controllers/image.js";
 
 
 const db = knex({
-  client: "pg",
+  client: 'pg',
   connection: {
-    host: "127.0.0.1",
-    user: "postgres",
-    password: "nano",
-    database: "brain-db",
-  },
+    host: 'postgresql-chamel-nadir-bouacha.alwaysdata.net',
+    port: 5432,
+    database: 'chamel-nadir-bouacha_brain_db',
+    user: 'chamel-nadir-bouacha',
+    password: 'FTL5x.nh4nPvm3r'
+  }
 });
 
 
