@@ -15,7 +15,7 @@ const db = knex({
     port: 5432,
     database: 'chamel-nadir-bouacha_brain_db',
     user: 'chamel-nadir-bouacha',
-    password: 'FTL5x.nh4nPvm3r'
+    password: 'FTSDCVHx.nh4nPvm3r'
   }
 });
 
