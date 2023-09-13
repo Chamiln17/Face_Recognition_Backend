@@ -1,4 +1,4 @@
-  
+import fetch from "node-fetch";
   
   // Your PAT (Personal Access Token) can be found in the portal under Authentification
   const MODEL_ID = "face-detection";
