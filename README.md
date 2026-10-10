@@ -59,7 +59,7 @@ To use the Clarifai API for face recognition, go to `image.js` and follow this:
 1. **Get a Personal Access Token (PAT):**
 
    - Your PAT (Personal Access Token) can be obtained from the Clarifai portal under Authentication.
-   - This token is required for authenticating your requests to the Clarifai API.
+   - This token is required for authenticating your requests to the Clarifai API. Set it in the `CLARIFAI_PAT` environment variable; never put it in the code.
 
 2. **Specify Model ID:**
 
@@ -69,8 +69,8 @@ To use the Clarifai API for face recognition, go to `image.js` and follow this:
 3. **Create a JSON Request Body:**
 
    - Use the `requestOptionsJSON` function to create the JSON body for your API request.
-   - Replace the `PAT`, `USER_ID`, `APP_ID`, and `IMAGE_URL` with your specific values.
-   - The `PAT` is your Personal Access Token, and the `IMAGE_URL` should be the URL of the image you want to process.
+   - Set `USER_ID` and `APP_ID` to your values; the `PAT` comes from `CLARIFAI_PAT`.
+   - The `IMAGE_URL` should be the URL of the image you want to process.
 
 4. **Make the API Request:**
 
@@ -82,12 +82,13 @@ To use the Clarifai API for face recognition, go to `image.js` and follow this:
    - Use the `displayFaceBox` and `calcBoxFace` functions to calculate and display the bounding box around detected faces.
    - You can customize how the face recognition results are displayed in your application.
 
-Make sure to replace the placeholder values in the code with your actual Clarifai credentials and image URLs.
+Credentials come from environment variables; see `.env.example`.
 
 
 ## Usage
-To run the backend locally, make sure you have PostgreSQL installed and configured with the correct connection settings in `server.js`. Then, follow these steps:
+To run the backend locally, make sure you have PostgreSQL installed. Then, follow these steps:
 1. Install project dependencies using `npm install`.
-2. Start the server using `npm start`.
+2. Set the environment variables listed in `.env.example` (`PGHOST`, `PGPORT`, `PGDATABASE`, `PGUSER`, `PGPASSWORD`, `CLARIFAI_PAT`).
+3. Start the server using `npm start`.
 
 The server will listen on the specified port (default is 5000) and can be accessed via API requests.

@@ -5,7 +5,7 @@ import fetch from "node-fetch";
   // This function creates the JSON body for your request
 
   const requestOptionsJSON = (imgUrl) => {
-    const PAT = "***REMOVED***";
+    const PAT = process.env.CLARIFAI_PAT;
     // Specify the correct user_id/app_id pairings
     // Since you're making inferences outside your app's scope
     const USER_ID = "chamil_n13";
